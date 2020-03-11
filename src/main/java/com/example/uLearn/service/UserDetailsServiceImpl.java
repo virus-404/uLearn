@@ -1,7 +1,7 @@
-package service;
+package com.example.uLearn.service;
 
-import model.Role;
-import model.User;
+import com.example.uLearn.model.Role;
+import com.example.uLearn.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import repository.UserRepository;
+import com.example.uLearn.repository.UserRepository;
 
 import java.util.HashSet;
 import java.util.Set;

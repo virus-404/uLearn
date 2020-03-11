@@ -1,6 +1,6 @@
-package service;
+package com.example.uLearn.service;
 
-import model.User;
+import com.example.uLearn.model.User;
 
 public interface UserService {
     void save(User user);

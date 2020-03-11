@@ -1,12 +1,12 @@
-package validator;
+package com.example.uLearn.validator;
 
-import model.User;
+import com.example.uLearn.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import service.UserService;
+import com.example.uLearn.service.UserService;
 
 @Component
 public class UserValidator implements Validator {

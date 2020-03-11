@@ -1,14 +1,14 @@
-package web;
+package com.example.uLearn.web;
 
-import model.User;
+import com.example.uLearn.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import service.SecurityService;
-import service.UserService;
-import validator.UserValidator;
+import com.example.uLearn.service.SecurityService;
+import com.example.uLearn.service.UserService;
+import com.example.uLearn.validator.UserValidator;
 
 @Controller
 public class UserController {

@@ -1,4 +1,4 @@
-package service;
+package com.example.uLearn.service;
 
 public interface SecurityService {
     String findLoggedInUsername();

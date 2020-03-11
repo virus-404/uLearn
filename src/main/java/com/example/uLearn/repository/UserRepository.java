@@ -1,6 +1,6 @@
-package repository;
+package com.example.uLearn.repository;
 
-import model.User;
+import com.example.uLearn.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
