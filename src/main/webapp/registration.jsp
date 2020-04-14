@@ -43,7 +43,7 @@
             </spring:bind>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-            <h4 class="text-center"><a href="${contextPath}/Login">Login if you are registered</a></h4>
+            <h4 class="text-center"><a href="${contextPath}/login">Login if you are registered</a></h4>
         </form:form>
 
     </div>

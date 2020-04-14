@@ -13,6 +13,12 @@ public class User {
 
     private String password;
 
+    private String email;
+
+    private boolean verifyEmail;
+
+
+
     @Transient
     private String passwordConfirm;
 
@@ -49,6 +55,23 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setVerifyEmail(boolean verifyEmail) {
+        this.verifyEmail = verifyEmail;
+    }
+
+    public boolean getVerifyEmail()
+    {
+        return verifyEmail;
     }
 
     public Set<Role> getRoles() {
