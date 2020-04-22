@@ -18,6 +18,7 @@ import com.example.uLearn.repository.RoleRepository;
 import com.example.uLearn.repository.UserRepository;
 import com.example.uLearn.security.jwt.JwtUtils;
 import com.example.uLearn.security.services.UserDetailsImpl;
+import com.example.uLearn.security.services.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 
 
@@ -52,6 +54,9 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
+	@Autowired
+	EmailSender emailSender;
+
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -65,6 +70,7 @@ public class AuthController {
 		List<String> roles = userDetails.getAuthorities().stream()
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
+
 
 		return ResponseEntity.ok(new JwtResponse(jwt,
 												 userDetails.getId(), 
@@ -123,6 +129,7 @@ public class AuthController {
 		}
 
 		user.setRoles(roles);
+		emailSender.sendEmail(user);
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

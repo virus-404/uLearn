@@ -32,6 +32,8 @@ public class User {
 	@Size(max = 120)
 	private String password;
 
+	private boolean isEnabled;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
@@ -77,6 +79,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean getIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(boolean enabled) {
+		isEnabled = enabled;
 	}
 
 	public Set<Role> getRoles() {
