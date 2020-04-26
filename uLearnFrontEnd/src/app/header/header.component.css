@@ -1,0 +1,15 @@
+mat-toolbar {
+  background-color: #ff5050;
+}
+
+#login{
+  position: absolute;
+  right: 40px;
+}
+
+a {
+  color: inherit;
+  padding-right: 10px;
+  padding-left:  10px;
+}
+
