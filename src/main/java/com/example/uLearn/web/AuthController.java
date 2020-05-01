@@ -71,12 +71,22 @@ public class AuthController {
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
+		if(userRepository.findByUsername(loginRequest.getUsername()).isPresent())
+		{
+			User user=userRepository.findByUsername(loginRequest.getUsername()).get();
+			if(!user.getIsEnabled())
+			{
+				emailSender.sendEmail(user);
+			}
+
+		}
 
 		return ResponseEntity.ok(new JwtResponse(jwt,
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
 												 userDetails.getEmail(), 
 												 roles));
+
 	}
 
 	@PostMapping("/signup")
@@ -129,9 +139,9 @@ public class AuthController {
 		}
 
 		user.setRoles(roles);
-		emailSender.sendEmail(user);
 		userRepository.save(user);
-
+		emailSender.sendEmail(user);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+
 	}
 }

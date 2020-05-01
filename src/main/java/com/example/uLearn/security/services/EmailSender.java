@@ -18,7 +18,7 @@ public class EmailSender {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(user.getEmail());
 
-        msg.setSubject("Testing from Spring Boot");
+        msg.setSubject("uLearn Activation email");
         msg.setText("Dear " +user.getUsername()+"\n email account not verified");
 
         javaMailSender.send(msg);
