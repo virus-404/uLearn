@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import com.example.uLearn.model.ERole;
 import com.example.uLearn.model.Role;
 import com.example.uLearn.model.User;
+import com.example.uLearn.payload.request.ActivationRequest;
 import com.example.uLearn.payload.request.LoginRequest;
 import com.example.uLearn.payload.request.SignupRequest;
 import com.example.uLearn.payload.response.JwtResponse;
@@ -20,6 +21,7 @@ import com.example.uLearn.security.jwt.JwtUtils;
 import com.example.uLearn.security.services.UserDetailsImpl;
 import com.example.uLearn.security.services.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -76,6 +78,7 @@ public class AuthController {
 			User user=userRepository.findByUsername(loginRequest.getUsername()).get();
 			if(!user.getIsEnabled())
 			{
+
 				emailSender.sendEmail(user);
 			}
 
@@ -140,8 +143,22 @@ public class AuthController {
 
 		user.setRoles(roles);
 		userRepository.save(user);
+
 		emailSender.sendEmail(user);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 
+	}
+	@PostMapping("/verifyEmail")
+	public ResponseEntity<?> verifyEmail(@Valid @RequestBody ActivationRequest activationRequest){
+
+		User user = userRepository.findByEmail(activationRequest.getEmail()).get();
+		if( user.getToken() == Integer.parseInt(activationRequest.getToken()))
+		{
+			return ResponseEntity.ok(new MessageResponse("Email verified correctly!"));
+		}
+		else
+		{
+			return ResponseEntity.ok(new MessageResponse("Please insert correct token"));
+		}
 	}
 }

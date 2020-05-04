@@ -32,6 +32,9 @@ public class User {
 	@Size(max = 120)
 	private String password;
 
+
+	private int token;
+
 	private boolean isEnabled;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -47,6 +50,7 @@ public class User {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.token= (int)((Math.random() * ((100000+999999) + 1) + 100000));
 	}
 
 	public Long getId() {
@@ -87,6 +91,14 @@ public class User {
 
 	public void setIsEnabled(boolean enabled) {
 		isEnabled = enabled;
+	}
+
+	public int getToken() {
+		return token;
+	}
+
+	public void setToken(int token) {
+		this.token = token;
 	}
 
 	public Set<Role> getRoles() {
