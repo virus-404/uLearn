@@ -1,6 +1,7 @@
-<div class="col-md-12">
-  <div class="card card-container">
 
+<div class="main-div">
+<mat-card>
+  <mat-grid-list class="grid" cols="3" rowHeight="50px">
     <form
       *ngIf="!isSuccessful"
       name="form"
@@ -8,9 +9,11 @@
       #f="ngForm"
       novalidate
     >
-      <div class="form-group">
-        <label for="username">Username</label>
+    <mat-grid-tile colspan="1" rowspan="1"> <label for="username">Username  </label> </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+      <mat-form-field>
         <input
+          matInput
           type="text"
           class="form-control"
           name="username"
@@ -18,65 +21,53 @@
           required
           minlength="3"
           maxlength="20"
-          #username="ngModel"
-        />
-        <div class="alert-danger" *ngIf="f.submitted && username.invalid">
-          <div *ngIf="username.errors.required">Username is required</div>
-          <div *ngIf="username.errors.minlength">
-            Username must be at least 3 characters
-          </div>
-          <div *ngIf="username.errors.maxlength">
-            Username must be at most 20 characters
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
+          #username="ngModel">
+          <mat-error *ngIf="username.errors.required"> Username is required</mat-error>
+          <mat-error *ngIf="username.errors.minlength"> Username must be at least 3 characters</mat-error>
+          <mat-error *ngIf="username.errors.maxlength"> Username must be at most 20 characters</mat-error>
+        </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="1" rowspan="1"><label for="email">Email</label></mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+      <mat-form-field>
         <input
+          matInput
           type="email"
           class="form-control"
           name="email"
           [(ngModel)]="form.email"
           required
           email
-          #email="ngModel"
-        />
-        <div class="alert-danger" *ngIf="f.submitted && email.invalid">
-          <div *ngIf="email.errors.required">Email is required</div>
-          <div *ngIf="email.errors.email">
-            Email must be a valid email address
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
+          #email="ngModel">
+          <mat-error *ngIf="email.errors.required">Email is required</mat-error>
+          <mat-error *ngIf="email.errors.email">Email must be a valid email address
+          </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="1" rowspan="1"><label for="password">Password</label> </mat-grid-tile>
+    <mat-grid-tile colspan="2" rowspan="1">
+      <mat-form-field>
         <input
+          matInput
           type="password"
           class="form-control"
           name="password"
           [(ngModel)]="form.password"
           required
           minlength="6"
-          #password="ngModel"
-        />
-        <div class="alert-danger" *ngIf="f.submitted && password.invalid">
-          <div *ngIf="password.errors.required">Password is required</div>
-          <div *ngIf="password.errors.minlength">
-            Password must be at least 6 characters
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary btn-block">Sign Up</button>
-      </div>
-
-      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
-      </div>
+          #password="ngModel">
+          <mat-error *ngIf="password.errors.required">Password is required</mat-error>
+          <mat-error *ngIf="password.errors.minlength">Password must be at least 6 characters</mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1" class="tile-butt">
+      <button mat-raised-button color="accent" class="btn btn-primary btn-block">Sign Up</button>
+    </mat-grid-tile>
     </form>
-
-    <div class="alert alert-success" *ngIf="isSuccessful">
-      Your registration is successful!
-    </div>
-  </div>
+  </mat-grid-list>
+</mat-card>
 </div>
+

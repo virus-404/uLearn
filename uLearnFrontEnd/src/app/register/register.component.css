@@ -1,0 +1,12 @@
+mat-card{
+  width: 270px;
+  height: 200px;
+  background-color: bisque;
+}
+
+.main-div{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

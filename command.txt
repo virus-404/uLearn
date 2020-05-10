@@ -1,0 +1,3 @@
+mvn spring-boot:run -> For back-end
+ng serve -> front-end
+ng serve -> front-end

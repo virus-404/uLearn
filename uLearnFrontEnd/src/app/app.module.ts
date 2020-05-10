@@ -14,12 +14,17 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HeaderComponent } from './header/header.component';
+import { ActivationEmailComponent } from "./activation-email/activation-email.component";
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivationEmailComponent } from './activation-email/activation-email.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 @NgModule({
@@ -33,7 +38,7 @@ import { ActivationEmailComponent } from './activation-email/activation-email.co
     BoardModeratorComponent,
     ProfileComponent,
     HeaderComponent,
-    ActivationEmailComponent
+    ActivationEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,12 @@ import { ActivationEmailComponent } from './activation-email/activation-email.co
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatGridListModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

@@ -8,7 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
-import {ActivationEmailComponent} from "./activation-email/activation-email.component";
+
 
 
 const routes: Routes = [
@@ -19,7 +19,6 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
-  { path: 'verify', component: ActivationEmailComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
