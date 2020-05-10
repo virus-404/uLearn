@@ -19,6 +19,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivationEmailComponent } from './activation-email/activation-email.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BoardUserComponent,
     BoardModeratorComponent,
     ProfileComponent,
-    HeaderComponent
+    HeaderComponent,
+    ActivationEmailComponent
   ],
   imports: [
     BrowserModule,

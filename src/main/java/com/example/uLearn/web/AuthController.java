@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.annotation.PreDestroy;
 import javax.validation.Valid;
 
 import com.example.uLearn.model.ERole;
 import com.example.uLearn.model.Role;
 import com.example.uLearn.model.User;
 import com.example.uLearn.payload.request.ActivationRequest;
+import com.example.uLearn.payload.request.ChangePasswordRequest;
 import com.example.uLearn.payload.request.LoginRequest;
 import com.example.uLearn.payload.request.SignupRequest;
 import com.example.uLearn.payload.response.JwtResponse;
@@ -21,20 +23,14 @@ import com.example.uLearn.security.jwt.JwtUtils;
 import com.example.uLearn.security.services.UserDetailsImpl;
 import com.example.uLearn.security.services.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-
+import org.springframework.web.bind.annotation.*;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -76,9 +72,8 @@ public class AuthController {
 		if(userRepository.findByUsername(loginRequest.getUsername()).isPresent())
 		{
 			User user=userRepository.findByUsername(loginRequest.getUsername()).get();
-			if(!user.getIsEnabled())
+			if(user.getIsEnabled() == false)
 			{
-
 				emailSender.sendEmail(user);
 			}
 
@@ -87,7 +82,7 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtResponse(jwt,
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
-												 userDetails.getEmail(), 
+												 userDetails.getEmail(),
 												 roles));
 
 	}
@@ -151,14 +146,27 @@ public class AuthController {
 	@PostMapping("/verifyEmail")
 	public ResponseEntity<?> verifyEmail(@Valid @RequestBody ActivationRequest activationRequest){
 
-		User user = userRepository.findByEmail(activationRequest.getEmail()).get();
+		User user = userRepository.findByUsername(activationRequest.getUsername()).get();
 		if( user.getToken() == Integer.parseInt(activationRequest.getToken()))
 		{
+			user.setIsEnabled(true);
 			return ResponseEntity.ok(new MessageResponse("Email verified correctly!"));
 		}
 		else
 		{
 			return ResponseEntity.ok(new MessageResponse("Please insert correct token"));
 		}
+
 	}
+
+	@PostMapping("/changePassword")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+	public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest){
+
+		User user = userRepository.findByUsername(changePasswordRequest.getUsername()).get();
+		user.setPassword(encoder.encode(changePasswordRequest.getPassword()));
+		userRepository.save(user);
+		return  ResponseEntity.ok(new MessageResponse("Password Changed correctly"));
+	}
+
 }
