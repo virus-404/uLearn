@@ -1,21 +1,17 @@
 package com.example.uLearn.payload.request;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
-public class ChangePasswordRequest {
-
+public class ResetPasswordRequest {
     @NotBlank
     private String username;
 
     @NotBlank
-    @Size(min = 6, max = 40)
     private String password;
 
-    public ChangePasswordRequest(@NotBlank String username, @NotBlank @Size(min = 6, max = 40) String password) {
-        this.username = username;
-        this.password = password;
-    }
+   @NotBlank
+   private String token;
+
 
     public String getUsername() {
         return username;
@@ -32,6 +28,13 @@ public class ChangePasswordRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }
-
-

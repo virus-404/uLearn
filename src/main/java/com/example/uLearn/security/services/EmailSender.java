@@ -16,6 +16,8 @@ public class EmailSender {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    String server= "http:\\localhost:4200";
+
     @Async
     public void sendEmail(User user) {
 
@@ -24,9 +26,24 @@ public class EmailSender {
 
         msg.setSubject("uLearn Activation email code-"+user.getToken());
         msg.setText("Dear " +user.getUsername()+"\nemail account not verified"+" insert the code: "+user.getToken()+
-                " in the box to activate " + "the email");
+                " in the box to activate " + "the email"+"\nClick the link below to login to activate\n"+
+                server+"\\verifyEmail ");
+
+
 
         javaMailSender.send(msg);
 
+    }
+
+    @Async
+    public void sendPasswordEmail(User user)
+    {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(user.getEmail());
+
+        msg.setSubject("Reset Password-"+user.getToken());
+        msg.setText("Dear " +user.getUsername()+" a password reset request has been sent follow the instruction to reset." +
+                "\ninsert token"+user.getToken()+ "in the link "+server+"\\resetPassword");
+        javaMailSender.send(msg);
     }
 }
