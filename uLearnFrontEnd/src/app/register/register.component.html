@@ -3,11 +3,9 @@
 <mat-card>
   <mat-grid-list class="grid" cols="3" rowHeight="50px">
     <form
-      *ngIf="!isSuccessful"
       name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
+      (submit)="onSubmit(signUpForm)"
+      #signUpForm="ngForm"
     >
     <mat-grid-tile colspan="1" rowspan="1"> <label for="username">Username  </label> </mat-grid-tile>
     <mat-grid-tile colspan="2" rowspan="1">
@@ -22,9 +20,9 @@
           minlength="3"
           maxlength="20"
           #username="ngModel">
-          <mat-error *ngIf="username.errors.required"> Username is required</mat-error>
-          <mat-error *ngIf="username.errors.minlength"> Username must be at least 3 characters</mat-error>
-          <mat-error *ngIf="username.errors.maxlength"> Username must be at most 20 characters</mat-error>
+          <mat-error *ngIf="username.errors?.required"> Username is required</mat-error>
+          <mat-error *ngIf="username.errors?.minlength"> Username must be at least 3 characters</mat-error>
+          <mat-error *ngIf="username.errors?.maxlength"> Username must be at most 20 characters</mat-error>
         </mat-form-field>
     </mat-grid-tile>
 
@@ -40,8 +38,8 @@
           required
           email
           #email="ngModel">
-          <mat-error *ngIf="email.errors.required">Email is required</mat-error>
-          <mat-error *ngIf="email.errors.email">Email must be a valid email address
+          <mat-error *ngIf="email.errors?.required">Email is required</mat-error>
+          <mat-error *ngIf="email.errors?.email">Email must be a valid email address
           </mat-error>
       </mat-form-field>
     </mat-grid-tile>
@@ -58,16 +56,16 @@
           required
           minlength="6"
           #password="ngModel">
-          <mat-error *ngIf="password.errors.required">Password is required</mat-error>
-          <mat-error *ngIf="password.errors.minlength">Password must be at least 6 characters</mat-error>
+          <mat-error *ngIf="password.errors?.required">Password is required</mat-error>
+          <mat-error *ngIf="password.errors?.minlength">Password must be at least 6 characters</mat-error>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="1" class="tile-butt">
-      <button mat-raised-button color="accent" class="btn btn-primary btn-block">Sign Up</button>
+      <button mat-raised-button type="submit" color="accent">Sign Up</button>
     </mat-grid-tile>
     </form>
   </mat-grid-list>
 </mat-card>
-</div>
+
 
