@@ -30,4 +30,10 @@ export class AuthService {
       password: form.value?.password
     }, httpOptions);
   }
+  sendToken(form:NgForm): Observable<any> {
+    return this.http.post(AUTH_API + 'resetpass', {
+      username: form.value?.user,
+      token: form.value?.token
+    }, httpOptions);
+  }
 }

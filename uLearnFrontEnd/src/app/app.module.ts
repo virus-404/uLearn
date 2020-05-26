@@ -19,6 +19,7 @@ import { ActivationEmailComponent } from "./activation-email/activation-email.co
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -26,6 +27,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ProfileComponent,
     HeaderComponent,
     ActivationEmailComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatInputModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
