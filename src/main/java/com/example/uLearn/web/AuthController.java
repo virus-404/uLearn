@@ -11,10 +11,7 @@ import javax.validation.Valid;
 import com.example.uLearn.model.ERole;
 import com.example.uLearn.model.Role;
 import com.example.uLearn.model.User;
-import com.example.uLearn.payload.request.ActivationRequest;
-import com.example.uLearn.payload.request.ChangePasswordRequest;
-import com.example.uLearn.payload.request.LoginRequest;
-import com.example.uLearn.payload.request.SignupRequest;
+import com.example.uLearn.payload.request.*;
 import com.example.uLearn.payload.response.JwtResponse;
 import com.example.uLearn.payload.response.MessageResponse;
 import com.example.uLearn.repository.RoleRepository;
@@ -63,7 +60,7 @@ public class AuthController {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
-		
+
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		List<String> roles = userDetails.getAuthorities().stream()
 				.map(item -> item.getAuthority())
@@ -80,8 +77,8 @@ public class AuthController {
 		}
 
 		return ResponseEntity.ok(new JwtResponse(jwt,
-												 userDetails.getId(), 
-												 userDetails.getUsername(), 
+												 userDetails.getId(),
+												 userDetails.getUsername(),
 												 userDetails.getEmail(),
 												 roles));
 
@@ -150,6 +147,7 @@ public class AuthController {
 		if( user.getToken() == Integer.parseInt(activationRequest.getToken()))
 		{
 			user.setIsEnabled(true);
+			userRepository.save(user);
 			return ResponseEntity.ok(new MessageResponse("Email verified correctly!"));
 		}
 		else
@@ -159,14 +157,6 @@ public class AuthController {
 
 	}
 
-	@PostMapping("/changePassword")
-	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-	public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest){
 
-		User user = userRepository.findByUsername(changePasswordRequest.getUsername()).get();
-		user.setPassword(encoder.encode(changePasswordRequest.getPassword()));
-		userRepository.save(user);
-		return  ResponseEntity.ok(new MessageResponse("Password Changed correctly"));
-	}
 
 }
